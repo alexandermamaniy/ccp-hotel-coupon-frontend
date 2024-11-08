@@ -18,7 +18,7 @@ export class CouponCreateModalComponent {
       title: ["", Validators.required],
       description: ["", Validators.required],
       discount: ["", Validators.required],
-      // media_url: ["", Validators.required],
+      media_url: ["", Validators.required],
       quantity: ["", Validators.required],
       expiration_date: ["", Validators.required]
     })
@@ -60,11 +60,32 @@ export class CouponCreateModalComponent {
     return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
   }
 
+  onChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.createCouponform.get('media_url').setValue(file);
+    }
+  }
+
   createCoupon() {
-    console.log("out form",this.createCouponform.value);
-    this.createCouponform.value.expiration_date = this.dateToYMD(this.createCouponform.value.expiration_date)
-    console.log("out form",this.createCouponform.value);
-    this.couponService.createCoupon(this.createCouponform.value).subscribe(data=> {
+
+
+    // this.createCouponform.value.expiration_date = this.dateToYMD(this.createCouponform.value.expiration_date)
+
+    console.log(this.createCouponform.value)
+
+    const formData = new FormData();
+
+    formData.append('title', this.createCouponform.get('title').value);
+    formData.append('description', this.createCouponform.get('description').value);
+    formData.append('discount', this.createCouponform.get('discount').value);
+    formData.append('media_url', this.createCouponform.get('media_url').value);
+    formData.append('quantity', this.createCouponform.value.quantity);
+    formData.append('expiration_date', this.dateToYMD(this.createCouponform.get('expiration_date').value));
+
+    console.log(formData)
+
+    this.couponService.createCoupon(formData).subscribe(data=> {
       console.log("response from server", data);
       this.createCouponform.reset();
       this.modalService.dismissAll();

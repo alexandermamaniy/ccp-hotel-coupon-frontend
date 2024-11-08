@@ -65,7 +65,7 @@
       </div>
       <div class=" form-group">
         <label for="inputFiles" >Select the best media to describe your coupon</label>
-        <input formControlName="media_url" class="form-control" type="file" id="inputFiles" placeholder="Select your files" multiple >
+        <input (change)="onChange($event)" formControlName="media_url" class="form-control" type="file" id="inputFiles" placeholder="Select your files" multiple >
       </div>
     </form>
   </div>
