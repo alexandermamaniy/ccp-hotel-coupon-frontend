@@ -1,0 +1,31 @@
+<!--<button class="btn btn-round" (click)="open(classic, '')">Classic modal</button>-->
+
+
+<button (click)="open(classic, '')" type="button" ngbTooltip="View Coupon" class="btn btn-info btn-link btn-sm">
+  <i class="fa fa-user"></i>
+</button>
+
+
+<ng-template #classic let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title text-center">Modal title</h5>
+    <button type="button" class="close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class=" info">
+      <div class=" icon icon-primary"><i class=" nc-icon nc-album-2"> </i></div>
+      <div class=" description">
+        <h4 class=" info-title">{{ couponTarget.title }}</h4>
+        <p>
+          Spend your time generating new ideas. You don't have to think of
+          implementing anymore.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-link"  (click)="c('Close click')">Okay</button>
+  </div>
+</ng-template>

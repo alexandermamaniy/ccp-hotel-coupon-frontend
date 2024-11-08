@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <div class="page-header" >
+    <div class="filter"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 ml-auto mr-auto">
+          <div class="card card-register">
+            <h3 class="card-title">Welcome</h3>
+            <form class="register-form" role="form" [formGroup]="form" >
+              <label>Email</label>
+              <input type="email" class="form-control no-border" placeholder="Email" formControlName="email">
+
+              <label>Password</label>
+              <input type="password" class="form-control no-border" placeholder="Password" formControlName="password">
+              <button (click)="login();" class="btn btn-danger btn-block btn-round">Login</button>
+            </form>
+            <div class="forgot">
+              <a href="javascript:void(0)" class="btn btn-link btn-danger">Forgot password?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

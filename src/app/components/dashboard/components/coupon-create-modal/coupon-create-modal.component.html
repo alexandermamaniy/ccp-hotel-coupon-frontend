@@ -1,0 +1,81 @@
+<button class="btn btn-round" (click)="open(Create, '')">Create Coupon</button>
+
+
+<ng-template #Create let-c="close" let-d="dismiss">
+
+
+  <div class="modal-header modal-register no-border-header text-center">
+    <button type="button" class="close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h6 class="text-muted">Welcome</h6>
+    <h3 class="modal-title text-center">Coupon Register</h3>
+<!--    <p>Log in to your account</p>-->
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="createCouponform">
+      <div class=" form-group" >
+        <label for="inputTitle"> Title </label>
+        <input
+          class=" form-control"
+          id="inputTitle"
+          placeholder="Title"
+          formControlName="title"
+          type="text"
+        />
+      </div>
+
+      <div class=" form-group">
+        <label for="inputDescription"> Description </label>
+        <textarea formControlName="description" id="inputDescription" class="form-control border-input" placeholder="Enter your coupon details, feel free to do it!" rows="3"></textarea>
+
+      </div>
+      <div class=" form-row">
+        <div class=" form-group col-md-6">
+          <label for="inputQuantity"> Quantity </label>
+          <input
+            formControlName="quantity"
+            class=" form-control"
+            id="inputQuantity"
+            placeholder="Quantity"
+            type="number"
+          />
+        </div>
+        <div class=" form-group col-md-6">
+          <label for="inputDiscount"> Discount </label>
+          <input
+            formControlName="discount"
+            class=" form-control"
+            id="inputDiscount"
+            placeholder="Discount"
+            type="number"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputExpirationDate"> Expiration date </label>
+        <div class='input-group date'>
+          <input formControlName="expiration_date" id="inputExpirationDate" class="form-control" placeholder="06/07/2017">
+          <div class="input-group-append">
+            <span class="input-group-text">
+                <span class="glyphicon glyphicon-calendar"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class=" form-group">
+        <label for="inputFiles" >Select the best media to describe your coupon</label>
+        <input formControlName="media_url" class="form-control" type="file" id="inputFiles" placeholder="Select your files" multiple >
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="left-side">
+      <button type="button" class="btn btn-default btn-link" (click)="c('Close click')">Never mind</button>
+    </div>
+    <div class="divider"></div>
+    <div class="right-side">
+      <button type="button" class="btn btn-success btn-link" (click)="createCoupon()">Create</button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,82 @@
+
+<div id="navbar-full">
+  <div class="navigation-example">
+    <!--         default navbar with notifications     -->
+    <nav class="navbar navbar-expand-md bg-danger">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)">Hotel Coupon App</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+<!--            <li class="nav-item">-->
+<!--              <div ngbDropdown class="no-caret image-dropdown">-->
+<!--                <div class="btn btn-just-icon btn-warning " ngbDropdownToggle>-->
+<!--                  <i class="nc-icon nc-sound-wave"></i>-->
+<!--                </div>-->
+<!--                <div ngbDropdownMenu class="dropdown-menu-right dropdown-notification">-->
+<!--                  <li class="no-notification">-->
+<!--                    You're all clear!-->
+<!--                  </li>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </li>-->
+
+
+            <li class="nav-item">
+              <div ngbDropdown class="no-caret image-dropdown">
+                <div class="btn btn-just-icon btn-danger" ngbDropdownToggle>
+                  <i class="nc-icon nc-email-85"></i>
+                </div>
+                <div ngbDropdownMenu class="dropdown-menu-right dropdown-wide dropdown-notification">
+                  <li class="dropdown-header">
+                    You have 7 unread notifications
+                  </li>
+                  <li>
+                    <ul class="dropdown-notification-list scroll-area">
+                      <a *ngFor="let i of [1,2,3,4]" href="javascript:void(0)" class="notification-item">
+                        <div class="notification-text">
+                          <span class="badge badge-pill badge-warning"><i class="nc-icon nc-chat-33"></i></span>
+                          <span class="message">
+                                                <b>Patrick</b> mentioned you in a comment.</span>
+                          <br />
+                          <span class="time">20min ago</span>
+                          <button class="btn btn-just-icon read-notification btn-round">
+                            <i class="nc-icon nc-check-2"></i>
+                          </button>
+                        </div>
+                      </a>
+                    </ul>
+                  </li>
+                  <!--      end scroll area -->
+                  <li class="dropdown-footer">
+                    <ul class="dropdown-footer-menu">
+                      <li>
+                        <a href="javascript:void(0)">Mark all as read</a>
+                      </li>
+                    </ul>
+                  </li>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div ngbDropdown class="image-dropdown no-caret">
+                <div class="nav-link navbar-brand" ngbDropdownToggle>
+                  <div class="profile-photo-small">
+                    <img src="assets/img/faces/user.jpg" alt="Circle Image" class="img-circle img-responsive img-no-padding">
+                  </div>
+                </div>
+                <div ngbDropdownMenu class="dropdown-menu-right dropdown-wide dropdown-notification dropdown-danger">
+                  <div class="dropdown-header">Welcome {{userProfile.full_name || userProfile.name}}</div>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" *ngIf="userProfile.name">Get Report</a>
+<!--                  <div class="dropdown-divider"></div>-->
+                  <a class="dropdown-item" (click)="logout();" >Log out</a>
+                  </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
