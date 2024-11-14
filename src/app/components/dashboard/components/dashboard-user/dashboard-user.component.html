@@ -60,7 +60,7 @@
             <td class="text-center"  >{{coupon.description}}</td>
 
             <td class="td-actions text-right">
-              <app-coupon-detail-modal [couponTarget]="coupon" ></app-coupon-detail-modal>
+              <app-coupon-detail-modal (click)="send_view_coupon_interaction_user(coupon)" [couponTarget]="coupon" ></app-coupon-detail-modal>
               <button (click)="redeemCoupon(coupon.id)"  type="button" ngbTooltip="Redeem Coupon" class="btn btn-success btn-link btn-sm">
                 <i class="fa fa-bookmark"></i>
               </button>

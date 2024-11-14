@@ -36,31 +36,26 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
               private couponService: CouponService,
               private router: Router,
               private modalService: NgbModal,
-              private socketService: SocketService) {
-    console.log("from socker initial");
-    this.wsSubscription =
-      this.socketService.createObservableSocket()
-        .subscribe(
-          data => {
-            this.messageFromServer = JSON.parse(data);
-            console.log(this.messageFromServer);
-            this.alerts.push({
-              id: 1,
-              type: 'success',
-              message: this.messageFromServer.message,
-              dismissible: true,
-              state: true
-            })
+              private socketService: SocketService) {}
 
-          },
-          err => console.log('err'),
-          () => console.log('The observable stream is complete')
-        );
+  send_view_coupon_interaction_user(coupon){
+
+    let body_message = {
+      action: "collect-user-interaction",
+      message: {
+        coupon_id: coupon.id,
+        action: "view",
+        user_profile_id: this.userProfile.id,
+        country: "Ireland"
+      }
+    }
+    this.sendMessageToServer(body_message)
   }
 
-  sendMessageToServer(){
-    const msg:{action: string, data: any}={action: 'sendMessage', 'data': 'Hello from UI'};
-    this.status = this.socketService.sendMessage(JSON.stringify(msg));
+  sendMessageToServer(data){
+    // const msg:{action: string, data: any}={action: 'sendMessage', 'data': 'Hello from UI'};
+    this.status = this.socketService.sendMessage(JSON.stringify(data));
+    console.log(this.status);
   }
 
   closeSocket(){
@@ -81,6 +76,24 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.profileService.getProfileMe().subscribe(data => {
       this.userProfile = data;
+      this.wsSubscription =
+        this.socketService.createObservableSocket(this.userProfile.id, "None")
+          .subscribe(
+            data => {
+              console.log("Daata del server socker", data)
+              this.messageFromServer = JSON.parse(data);
+              console.log("desde socket ",this.messageFromServer);
+              this.alerts.push({
+                id: 1,
+                type: 'success',
+                message: this.messageFromServer.message,
+                dismissible: true,
+                state: true
+              })
+            },
+            err => console.log('err'),
+            () => console.log('The observable stream is complete')
+          );
         console.log("from user dashboard" , this.userProfile)
         this.couponService.getCouponsMe().subscribe(couponData => {
           this.my_coupons = couponData;
@@ -99,6 +112,10 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
     }, error => {
       this.router.navigateByUrl("/login");
     });
+
+
+
+
   }
 
   redeemCoupon(id){
@@ -110,7 +127,18 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
         message: 'The Coupon has been redeemed successfully!',
         dismissible: true,
         state: true
-      })
+      });
+
+      let body_message = {
+        action: "collect-user-interaction",
+        message: {
+          coupon_id: id,
+          action: "redeem",
+          user_profile_id: this.userProfile.id,
+          country: "Ireland"
+        }
+      }
+      this.sendMessageToServer(body_message)
     }, error => {
       this.alerts.push({
         id: 2,

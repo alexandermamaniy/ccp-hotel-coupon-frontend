@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -13,6 +13,9 @@ export class CouponCreateModalComponent {
   closeResult: string;
   date: {year: number, month: number};
   createCouponform: FormGroup;
+  @Input() my_coupons;
+  @Output() createdEvent = new EventEmitter<any>();
+
   constructor(private modalService: NgbModal, private  fb: FormBuilder, private router:Router, private couponService: CouponService) {
     this.createCouponform = this.fb.group({
       title: ["", Validators.required],
@@ -87,9 +90,12 @@ export class CouponCreateModalComponent {
 
     this.couponService.createCoupon(formData).subscribe(data=> {
       console.log("response from server", data);
+      this.my_coupons.push(data);
       this.createCouponform.reset();
       this.modalService.dismissAll();
-      this.reloadCurrentRoute()
+      this.createdEvent.emit(data);
+      // this.reloadCurrentRoute();
+
     }, error => {
       console.log(error)
     })

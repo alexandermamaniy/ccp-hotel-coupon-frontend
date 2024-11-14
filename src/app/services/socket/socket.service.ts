@@ -11,9 +11,10 @@ export class SocketService {
   ws: WebSocket;
   socketIsOpen = 1;
 
-  createObservableSocket(): Observable<any> {
-    console.log("From socket service");
-    this.ws = new WebSocket(environment.wsUrl);
+  createObservableSocket(user_id, hotelier_id): Observable<any> {
+
+    let ws_url = environment.wsUrl +"?userProfileId="+user_id+"&hotelierProfileId="+hotelier_id;
+    this.ws = new WebSocket(ws_url);
 
     return new Observable(
       observer => {

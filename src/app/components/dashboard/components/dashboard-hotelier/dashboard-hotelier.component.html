@@ -1,3 +1,12 @@
+<br>
+<div class="row">
+  <div class="col-md-11 ml-auto mr-auto">
+
+    <app-notification [alerts]="alerts"></app-notification>
+
+  </div>
+</div>
+
 <div class="container-fluid">
 
   <div class="row">
@@ -16,8 +25,13 @@
           </form>
 
         </div>
-        <div class="col-md-6 text-right">
-          <app-coupon-create-modal></app-coupon-create-modal>
+
+        <div class="col-md-3 text-right">
+          <button class="btn btn-round" (click)="getReport()" >Get report</button>
+
+        </div>
+        <div class="col-md-3 text-right">
+          <app-coupon-create-modal (createdEvent)="notifyAllUserSocket($event)" [my_coupons]="my_coupons"></app-coupon-create-modal>
         </div>
       </div>
       <br/>

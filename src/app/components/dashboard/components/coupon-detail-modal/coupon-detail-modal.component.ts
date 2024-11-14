@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {SocketService} from "../../../../services/socket/socket.service";
 
 @Component({
   selector: 'app-coupon-detail-modal',
@@ -12,7 +13,7 @@ export class CouponDetailModalComponent implements OnInit {
 
   closeResult: string;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private socketService: SocketService) {}
 
 
   ngOnInit() {
@@ -21,6 +22,9 @@ export class CouponDetailModalComponent implements OnInit {
 
 
   open(content, type) {
+
+
+
     if (type === 'sm') {
       console.log('aici');
       this.modalService.open(content, { size: 'sm' }).result.then((result) => {
@@ -46,4 +50,6 @@ export class CouponDetailModalComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
+
+
 }
