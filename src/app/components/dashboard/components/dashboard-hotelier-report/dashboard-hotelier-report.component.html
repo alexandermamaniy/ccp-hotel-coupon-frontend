@@ -1,0 +1,68 @@
+<br>
+<div class="row">
+  <div class="col-md-11 ml-auto mr-auto">
+
+    <app-notification [alerts]="alerts"></app-notification>
+
+  </div>
+</div>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+
+    <div class="col-md-10 ml-auto mr-auto">
+      <h2 class="title">
+        <small>Your Reports</small>
+      </h2>
+
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-inline ml-auto">
+            <!--        <input class="form-control mr-sm-2 no-border" type="text" placeholder="Search">-->
+            <input class="form-control mr-sm-2 no-border" type="text" [(ngModel)]="created_date" name="tit2" placeholder="Find your reports here!"/>
+            <button type="submit" class="btn btn-primary btn-just-icon btn-round"><i class="nc-icon nc-zoom-split" aria-hidden="true"></i></button>
+          </form>
+
+        </div>
+
+        <div class="col-md-6 text-right">
+          <button class="btn btn-round" (click)="getReport()" >Get report</button>
+        </div>
+      </div>
+      <br/>
+
+      <div class="table-responsive my_scroll_div">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+          <tr >
+            <th class="text-left">No.</th>
+            <th class="text-center" >Report Title</th>
+            <th class="text-center">Creation Date</th>
+            <th class="text-right">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let report of my_reports | customerReportFilter:created_date;let i = index">
+            <td class="text-left" >{{i+1}}</td>
+            <td class="text-center"  >{{report.title}}</td>
+            <td class="text-center" >{{getDate(report.created_date)}}</td>
+
+            <td class="td-actions text-right">
+              <a  target="_blank" href="{{report.media_url}}" ngbTooltip="Download Report" class="btn btn-info btn-link btn-sm">
+                <i class="fa fa-download"></i>
+              </a>
+              <!--              <button type="button" ngbTooltip="Download Report" class="btn btn-info btn-link btn-sm">-->
+              <!--                <i class="fa fa-download"></i>-->
+              <!--              </button>-->
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

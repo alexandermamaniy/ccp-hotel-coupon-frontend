@@ -18,7 +18,8 @@ import {CouponDetailModalComponent} from "./components/coupon-detail-modal/coupo
 import {CouponCreateModalComponent} from "./components/coupon-create-modal/coupon-create-modal.component";
 import {NotificationComponent} from "./notification/notification.component";
 import {NgbdAlertBasic} from "./components/alert-basic/alert-basic";
-import {SearchReportPipe} from "./components/dashboard-hotelier/search-report.pipe";
+import {SearchReportPipe} from "./components/dashboard-hotelier-report/search-report.pipe";
+import { DashboardHotelierReportComponent } from './components/dashboard-hotelier-report/dashboard-hotelier-report.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {SearchReportPipe} from "./components/dashboard-hotelier/search-report.pi
     DashboardComponent,
     DashboardUserComponent,
     DashboardHotelierComponent,
+    DashboardHotelierReportComponent,
     NavbarComponent,
     CouponDetailModalComponent,
     CouponCreateModalComponent,

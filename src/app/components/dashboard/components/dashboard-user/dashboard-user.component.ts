@@ -82,8 +82,7 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.profileService.getProfileMe().subscribe(data => {
       this.userProfile = data;
-      this.wsSubscription =
-        this.socketService.createObservableSocket(this.userProfile.id, "None")
+      this.wsSubscription = this.socketService.createObservableSocket(this.userProfile.id, "None")
           .subscribe(
             data => {
               console.log("Daata del server socker", data)
