@@ -17,9 +17,12 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
 
   public userProfile:any = {};
   public title="";
+  public created_date="";
   closeResult: string;
   aa:boolean=false;
   public my_coupons = [];
+
+  public my_reports = []
 
   public alerts: Array<IAlert>=[];
 
@@ -52,7 +55,12 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
               message: this.messageFromServer.message,
               dismissible: true,
               state: true
-            })
+            });
+            this.reportService.getAllHotelierReport().subscribe(reports => {
+              console.log("reports", reports);
+              this.my_reports = reports;
+            });
+
           },
           err => console.log('err'),
           () => console.log('The observable stream is complete')
@@ -61,6 +69,12 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
         this.my_coupons = couponData;
         console.log("my coupons hotelier" , this.my_coupons)
       });
+
+      this.reportService.getAllHotelierReport().subscribe(reports => {
+        console.log("reports", reports);
+        this.my_reports = reports;
+      });
+
       if(!this.userProfile.name){
         this.router.navigateByUrl("/login");
       }
@@ -72,6 +86,13 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
   getReport(){
     this.reportService.getHotelierReport().subscribe(data => {
         console.log(data);
+    });
+    this.alerts.push({
+      id: 1,
+      type: 'info',
+      message: " We are generating your report, we let you know when it is ready",
+      dismissible: true,
+      state: true
     })
   }
 

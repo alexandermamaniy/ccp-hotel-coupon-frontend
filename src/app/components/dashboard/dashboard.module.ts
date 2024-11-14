@@ -18,6 +18,7 @@ import {CouponDetailModalComponent} from "./components/coupon-detail-modal/coupo
 import {CouponCreateModalComponent} from "./components/coupon-create-modal/coupon-create-modal.component";
 import {NotificationComponent} from "./notification/notification.component";
 import {NgbdAlertBasic} from "./components/alert-basic/alert-basic";
+import {SearchReportPipe} from "./components/dashboard-hotelier/search-report.pipe";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {NgbdAlertBasic} from "./components/alert-basic/alert-basic";
     CouponCreateModalComponent,
     NotificationComponent,
     NgbdAlertBasic,
-    SearchPipe
+    SearchPipe,
+    SearchReportPipe
   ],
   imports: [
     CommonModule,

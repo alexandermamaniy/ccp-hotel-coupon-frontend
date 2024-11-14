@@ -91,14 +91,14 @@ export class CouponCreateModalComponent {
     this.couponService.createCoupon(formData).subscribe(data=> {
       console.log("response from server", data);
       this.my_coupons.push(data);
-      this.createCouponform.reset();
-      this.modalService.dismissAll();
       this.createdEvent.emit(data);
-      // this.reloadCurrentRoute();
-
     }, error => {
       console.log(error)
     })
+
+    this.createCouponform.reset();
+    this.modalService.dismissAll();
+
   }
 
 

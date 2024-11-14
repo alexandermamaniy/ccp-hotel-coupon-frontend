@@ -14,6 +14,11 @@ export class ReportService {
   }
 
   getHotelierReport(): Observable<any>  {
-    return this.http.get<any>(this.url +'generate-report-pdf');
+
+    return this.http.get<any>(this.url +'report/generate-pdf');
+  }
+
+  getAllHotelierReport(): Observable<any>  {
+    return this.http.get<any>(this.url +'report/me');
   }
 }
