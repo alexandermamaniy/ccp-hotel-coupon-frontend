@@ -40,13 +40,19 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
 
   send_view_coupon_interaction_user(coupon){
 
+
+    let date = new Date();
+    let dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+
+
     let body_message = {
       action: "collect-user-interaction",
       message: {
         coupon_id: coupon.id,
         action: "view",
         user_profile_id: this.userProfile.id,
-        country: "Ireland"
+        country: "Ireland",
+        date: dateString
       }
     }
     this.sendMessageToServer(body_message)
@@ -90,10 +96,18 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
                 dismissible: true,
                 state: true
               })
+
+
+              this.couponService.getAllCoupons().subscribe(allCouponData => {
+                this.all_coupons = allCouponData;
+                console.log("all coupons" , this.all_coupons)
+              })
             },
             err => console.log('err'),
             () => console.log('The observable stream is complete')
           );
+
+
         console.log("from user dashboard" , this.userProfile)
         this.couponService.getCouponsMe().subscribe(couponData => {
           this.my_coupons = couponData;
@@ -128,14 +142,16 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
         dismissible: true,
         state: true
       });
-
+      let date = new Date();
+      let dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
       let body_message = {
         action: "collect-user-interaction",
         message: {
           coupon_id: id,
           action: "redeem",
           user_profile_id: this.userProfile.id,
-          country: "Ireland"
+          country: "Ireland",
+          date: dateString
         }
       }
       this.sendMessageToServer(body_message)
