@@ -8,22 +8,85 @@
 
 <ng-template #classic let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h5 class="modal-title text-center">Modal title</h5>
+    <h5 class="modal-title text-center">Coupon Details</h5>
     <button type="button" class="close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body text-center">
-    <div class=" info">
-      <div class=" icon icon-primary"><i class=" nc-icon nc-album-2"> </i></div>
-      <div class=" description">
-        <h4 class=" info-title">{{ couponTarget.title }}</h4>
-        <p>
-          Spend your time generating new ideas. You don't have to think of
-          implementing anymore.
-        </p>
+  <div class="modal-body">
+    <form >
+      <div class=" form-group" >
+        <label for="inputTitle"> Title </label>
+        <input
+          value="{{couponTarget.title}}"
+          readonly
+          class=" form-control"
+          id="inputTitle"
+          placeholder="Title"
+
+          type="text"
+        />
       </div>
-    </div>
+
+      <div class=" form-group">
+        <label for="inputDescription"> Description </label>
+        <textarea value="{{couponTarget.description}}"  readonly  id="inputDescription" class="form-control border-input" placeholder="Enter your coupon details, feel free to do it!" rows="3"></textarea>
+
+      </div>
+      <div *ngIf="is_hotelier" class=" form-row">
+        <div class=" form-group col-md-6">
+          <label for="inputQuantity"> Quantity </label>
+          <input
+            value="{{couponTarget.quantity}}"  readonly
+
+            class=" form-control"
+            id="inputQuantity"
+            placeholder="Quantity"
+            type="number"
+          />
+        </div>
+        <div class=" form-group col-md-6">
+          <label for="inputRedeem"> How many have been redeemed </label>
+          <input
+            value="{{couponTarget.how_many_have_redeemed}}"  readonly
+
+            class=" form-control"
+            id="inputRedeem"
+            placeholder="How many have been redeemed "
+            type="number"
+          />
+        </div>
+      </div>
+      <div class=" form-row">
+        <div class=" form-group col-md-6">
+          <label for="inputDiscount"> Discount </label>
+          <input
+            value="{{couponTarget.discount}}"  readonly
+
+            class=" form-control"
+            id="inputDiscount"
+            placeholder="Discount"
+            type="number"
+          />
+        </div>
+        <div class=" form-group col-md-6">
+          <label for="inputExpirationDate"> Expiration date </label>
+          <div class='input-group date'>
+            <input value="{{getDate(couponTarget.expiration_date)}}"  readonly   id="inputExpirationDate" class="form-control" placeholder="06/07/2017">
+            <div class="input-group-append">
+            <span class="input-group-text">
+                <span class="glyphicon glyphicon-calendar"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" form-group">
+        <label>Select the best media to describe your coupon</label>
+        <br>
+        <img src="{{couponTarget.media_url}}" style="width: 100%" class="img-fluid">
+      </div>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-link"  (click)="c('Close click')">Okay</button>

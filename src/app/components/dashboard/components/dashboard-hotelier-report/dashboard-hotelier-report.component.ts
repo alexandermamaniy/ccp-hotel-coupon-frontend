@@ -93,7 +93,7 @@ export class DashboardHotelierReportComponent implements OnInit, OnDestroy {
   }
 
   getDate(created_date){
-    return new Date(created_date).toDateString()
+    return new Date(created_date).toLocaleString()
   }
 
 

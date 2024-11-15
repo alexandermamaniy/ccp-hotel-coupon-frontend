@@ -10,6 +10,7 @@ import {SocketService} from "../../../../services/socket/socket.service";
 export class CouponDetailModalComponent implements OnInit {
 
   @Input() couponTarget;
+  @Input() is_hotelier: boolean;
 
   closeResult: string;
 
@@ -20,7 +21,9 @@ export class CouponDetailModalComponent implements OnInit {
 
   }
 
-
+  getDate(created_date){
+    return new Date(created_date).toDateString()
+  }
   open(content, type) {
 
 

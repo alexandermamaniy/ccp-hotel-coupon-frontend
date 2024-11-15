@@ -32,9 +32,9 @@ import {DashboardModule} from "./components/dashboard/dashboard.module";
       {
         provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true
       },
-      {
-        provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true
-      }
+      // {
+      //   provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true
+      // }
     ],
     bootstrap: [AppComponent]
 })

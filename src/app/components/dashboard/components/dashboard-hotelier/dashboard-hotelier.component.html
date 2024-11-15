@@ -38,11 +38,13 @@
           <tr >
             <th class="text-left">No.</th>
             <th class="text-center" >Title</th>
-            <th class="text-center">Discount</th>
-            <th class="text-center" >Hotelier Name</th>
-            <th class="text-center">Expiration date</th>
-            <th class="text-center" >Quantity</th>
             <th class="text-center">Description</th>
+            <th class="text-center">Discount</th>
+            <th class="text-center" >Quantity</th>
+            <th class="text-center" >Redeemed</th>
+            <th class="text-center" >Used</th>
+            <th class="text-center">Expiration date</th>
+            <th class="text-center" >Hotelier Name</th>
             <th class="text-right">Actions</th>
           </tr>
           </thead>
@@ -51,17 +53,20 @@
           <tr *ngFor="let coupon of my_coupons | customerEmailFilter:title;let i = index">
             <td class="text-left" >{{i+1}}</td>
             <td class="text-center"  >{{coupon.title}}</td>
-            <td class="text-center" >{{coupon.discount}}</td>
-            <td class="text-center"  >{{coupon.hotelier_profile.name}}</td>
-            <td class="text-center" >{{getDate(coupon.expiration_date)}}</td>
-            <td class="text-center" >{{coupon.quantity}}</td>
             <td class="text-center"  >{{coupon.description}}</td>
+            <td class="text-center" >{{coupon.discount}}</td>
+            <td class="text-center" >{{coupon.quantity}}</td>
+            <td class="text-center" >{{coupon.how_many_have_redeemed}}</td>
+            <td class="text-center" >{{coupon.how_many_have_used}}</td>
+
+            <td class="text-center" >{{getDate(coupon.expiration_date)}}</td>
+            <td class="text-center"  >{{coupon.hotelier_profile.name}}</td>
 
             <td class="td-actions text-right">
-              <app-coupon-detail-modal [couponTarget]="coupon" ></app-coupon-detail-modal>
-              <button type="button" ngbTooltip="Delete Coupon" class="btn btn-danger btn-link btn-sm">
-                <i class="fa fa-remove"></i>
-              </button>
+              <app-coupon-detail-modal [is_hotelier]="true" [couponTarget]="coupon" ></app-coupon-detail-modal>
+<!--              <button type="button" ngbTooltip="Delete Coupon" class="btn btn-danger btn-link btn-sm">-->
+<!--                <i class="fa fa-remove"></i>-->
+<!--              </button>-->
               <!--              <button type="button" ngbTooltip="Remove" class="btn btn-danger btn-link btn-sm">-->
               <!--                <i class="fa fa-times"></i>-->
               <!--              </button>-->
@@ -72,6 +77,53 @@
       </div>
 
     </div>
+
+
+    <div class="col-md-10 ml-auto mr-auto">
+      <h2 class="title">
+        <small>
+          Your used coupons
+        </small>
+      </h2>
+
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-inline ml-auto">
+            <!--        <input class="form-control mr-sm-2 no-border" type="text" placeholder="Search">-->
+            <input id="coupon_id_input" class="form-control mr-sm-2 no-border" type="text" placeholder="Insert your coupon code"/>
+            <button type="submit" (click)="useCoupon()" class="btn btn-primary btn-round"><i class="nc-icon nc-tag-content" aria-hidden="true"> Use coupon </i></button>
+          </form>
+        </div>
+      </div>
+      <br/>
+
+      <div class="table-responsive my_scroll_div">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+          <tr >
+            <th class="text-left">No.</th>
+            <th class="text-center" >Coupon Name</th>
+            <th class="text-center" >Coupon Code</th>
+            <th class="text-center">User Profile</th>
+            <th class="text-center">Date</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let used_coupon of my_used_coupons ;let i = index">
+            <td class="text-left" >{{i+1}}</td>
+            <td class="text-center"  >{{used_coupon.coupon_id.title}}</td>
+            <td class="text-center" >{{used_coupon.id}}</td>
+            <td class="text-center"  >{{used_coupon.user_profile_id.full_name}}</td>
+            <td class="text-center" >{{getDate(used_coupon.created_date)}}</td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
 
 
   </div>

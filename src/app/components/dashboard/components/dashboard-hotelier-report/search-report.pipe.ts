@@ -18,7 +18,7 @@ export class SearchReportPipe implements PipeTransform {
 
 
   getDate(created_date){
-    return new Date(created_date).toDateString()
+    return new Date(created_date).toLocaleString()
   }
 
 

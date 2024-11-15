@@ -21,6 +21,7 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
   closeResult: string;
   aa:boolean=false;
   public my_coupons = [];
+  public my_used_coupons = [];
 
   public alerts: Array<IAlert>=[];
 
@@ -64,6 +65,10 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
         console.log("my coupons hotelier" , this.my_coupons)
       });
 
+      this.couponService.getAllUsedCoupons().subscribe(used_coupons => {
+        this.my_used_coupons = used_coupons;
+      })
+
       if(!this.userProfile.name){
         this.router.navigateByUrl("/login");
       }
@@ -101,6 +106,28 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
     console.log(this.status);
   }
 
+  useCoupon(){
+    let code_code = document.getElementById('coupon_id_input')['value'].trim()
+    this.couponService.useCoupon(code_code).subscribe(data => {
+      console.log(data)
+      this.my_used_coupons.push(data);
+      this.alerts.push({
+        id: 1,
+        type: 'success',
+        message: "Coupon code: " +data.id + " has been used successfully",
+        dismissible: true,
+        state: true
+      });
+    }, error => {
+      this.alerts.push({
+        id: 1,
+        type: 'danger',
+        message: error.error,
+        dismissible: true,
+        state: true
+      });
+    })
+  }
 
   closeSocket(){
     this.wsSubscription.unsubscribe();

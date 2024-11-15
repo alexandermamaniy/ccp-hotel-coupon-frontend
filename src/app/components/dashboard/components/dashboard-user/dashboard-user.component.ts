@@ -90,16 +90,17 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
               console.log("desde socket ",this.messageFromServer);
               this.alerts.push({
                 id: 1,
-                type: 'success',
+                type: 'info',
                 message: this.messageFromServer.message,
                 dismissible: true,
                 state: true
               })
-
+              this.couponService.getCouponsMe().subscribe(couponData => {
+                this.my_coupons = couponData;
+              });
 
               this.couponService.getAllCoupons().subscribe(allCouponData => {
                 this.all_coupons = allCouponData;
-                console.log("all coupons" , this.all_coupons)
               })
             },
             err => console.log('err'),
@@ -131,6 +132,7 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
 
   }
 
+  // Update with tabla intermedia
   redeemCoupon(id){
     this.couponService.redeemCoupon(id).subscribe(data => {
       this.my_coupons.push(data);

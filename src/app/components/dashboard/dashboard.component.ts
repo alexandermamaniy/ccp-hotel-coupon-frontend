@@ -30,10 +30,12 @@ export class DashboardComponent implements OnInit, OnDestroy{
         this.isHotelier =  true;
       }
 
-      if (this.isHotelier) {
-        this.router.navigateByUrl("/dashboard/hotelier");
-      } else {
+
+
+      if (!this.isHotelier) {
         this.router.navigateByUrl("/dashboard/user");
+      } else {
+        this.router.navigateByUrl("/dashboard/hotelier");
       }
     }, (error) => {
       console.error(error);

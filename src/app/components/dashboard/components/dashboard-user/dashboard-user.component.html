@@ -43,7 +43,7 @@
             <th class="text-center">Discount</th>
             <th class="text-center" >Hotelier Name</th>
             <th class="text-center">Expiration date</th>
-            <th class="text-center" >Quantity</th>
+
             <th class="text-center">Description</th>
             <th class="text-right">Actions</th>
           </tr>
@@ -56,11 +56,10 @@
             <td class="text-center" >{{coupon.discount}}</td>
             <td class="text-center"  >{{coupon.hotelier_profile.name}}</td>
             <td class="text-center" >{{getDate(coupon.expiration_date)}}</td>
-            <td class="text-center" >{{coupon.quantity}}</td>
             <td class="text-center"  >{{coupon.description}}</td>
 
             <td class="td-actions text-right">
-              <app-coupon-detail-modal (click)="send_view_coupon_interaction_user(coupon)" [couponTarget]="coupon" ></app-coupon-detail-modal>
+              <app-coupon-detail-modal (click)="send_view_coupon_interaction_user(coupon)" [is_hotelier]="false" [couponTarget]="coupon" ></app-coupon-detail-modal>
               <button (click)="redeemCoupon(coupon.id)"  type="button" ngbTooltip="Redeem Coupon" class="btn btn-success btn-link btn-sm">
                 <i class="fa fa-bookmark"></i>
               </button>
@@ -83,14 +82,19 @@
         <div *ngFor="let coupon of my_coupons" class="col-md-3 ml-auto mr-auto">
           <div class="card card-pricing" data-color="orange">
             <div class="card-body">
-              <h6 class="card-category">{{coupon.title}}</h6>
+              <h6 class="card-category">{{coupon.coupon_id.hotelier_profile.name}}</h6>
+              <h7 class="card-category">{{coupon.coupon_id.title}}</h7>
               <div class="card-icon">
-                <i class="nc-icon nc-user-run"></i>
+                <i class="fa fa-bed"></i>
               </div>
-              <h3 class="card-title">{{ coupon.discount }}% off</h3>
+              <h3 class="card-title">{{ coupon.coupon_id.discount }}% off</h3>
               <p class="card-description">
-                Expire {{getDate(coupon.expiration_date)}}
+                Expire {{getDate(coupon.coupon_id.expiration_date)}}
               </p>
+              <p class="card-description">
+                Code: {{coupon.id}}
+              </p>
+
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ export class CouponService {
   constructor( private http: HttpClient ) {
 
   }
-
+  // replace with coupon_user
   getCouponsMe(): Observable<any>  {
     return this.http.get<any>(this.url +'coupon/me');
   }
@@ -33,5 +33,13 @@ export class CouponService {
     return this.http.get(this.url+'coupon/redeem/'+ id);
   }
 
+  useCoupon(id): Observable<any>{
+    return this.http.get(this.url+'coupon/use/'+ id);
+  }
+
+
+  getAllUsedCoupons(): Observable<any>{
+    return this.http.get(this.url+'coupon/list-used');
+  }
 
 }
