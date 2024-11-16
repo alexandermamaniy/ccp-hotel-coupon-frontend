@@ -32,12 +32,13 @@ export class SocketService {
     );
   }
 
-  sendMessage(message: string): string {
+  sendMessage(message: string): boolean {
     if (this.ws.readyState === this.socketIsOpen) {
       this.ws.send(message);
-      return `Sent to server ${message}`;
+      console.log(`Sent to server ${message}`)
+      return true;
     } else {
-      return 'Message was not sent - the socket is closed';
+      return false;
     }
   }
 }

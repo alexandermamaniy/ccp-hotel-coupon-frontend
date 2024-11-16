@@ -61,7 +61,12 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
   sendMessageToServer(data){
     // const msg:{action: string, data: any}={action: 'sendMessage', 'data': 'Hello from UI'};
     this.status = this.socketService.sendMessage(JSON.stringify(data));
-    console.log(this.status);
+    if (!this.status) {
+      console.log("Refreshing Web socket");
+      this.subscribeWebSocket();
+      this.status = this.socketService.sendMessage(JSON.stringify(data));
+    }
+
   }
 
   closeSocket(){
@@ -79,34 +84,37 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
     return new Date(created_date).toDateString()
   }
 
+  subscribeWebSocket(){
+    this.wsSubscription = this.socketService.createObservableSocket(this.userProfile.id, "None")
+      .subscribe(
+        data => {
+          console.log("Daata del server socker", data)
+          this.messageFromServer = JSON.parse(data);
+          console.log("desde socket ",this.messageFromServer);
+          this.alerts.push({
+            id: 1,
+            type: 'info',
+            message: this.messageFromServer.message,
+            dismissible: true,
+            state: true
+          })
+          this.couponService.getCouponsMe().subscribe(couponData => {
+            this.my_coupons = couponData;
+          });
+
+          this.couponService.getAllCoupons().subscribe(allCouponData => {
+            this.all_coupons = allCouponData;
+          })
+        },
+        err => console.log('err'),
+        () => console.log('The observable stream is complete')
+      );
+  }
+
   ngOnInit() {
     this.profileService.getProfileMe().subscribe(data => {
       this.userProfile = data;
-      this.wsSubscription = this.socketService.createObservableSocket(this.userProfile.id, "None")
-          .subscribe(
-            data => {
-              console.log("Daata del server socker", data)
-              this.messageFromServer = JSON.parse(data);
-              console.log("desde socket ",this.messageFromServer);
-              this.alerts.push({
-                id: 1,
-                type: 'info',
-                message: this.messageFromServer.message,
-                dismissible: true,
-                state: true
-              })
-              this.couponService.getCouponsMe().subscribe(couponData => {
-                this.my_coupons = couponData;
-              });
-
-              this.couponService.getAllCoupons().subscribe(allCouponData => {
-                this.all_coupons = allCouponData;
-              })
-            },
-            err => console.log('err'),
-            () => console.log('The observable stream is complete')
-          );
-
+      this.subscribeWebSocket();
 
         console.log("from user dashboard" , this.userProfile)
         this.couponService.getCouponsMe().subscribe(couponData => {
