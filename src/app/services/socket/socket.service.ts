@@ -32,6 +32,8 @@ export class SocketService {
     );
   }
 
+
+
   sendMessage(message: string): boolean {
     if (this.ws.readyState === this.socketIsOpen) {
       this.ws.send(message);

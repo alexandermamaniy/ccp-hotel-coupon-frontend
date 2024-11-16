@@ -58,13 +58,19 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
     this.sendMessageToServer(body_message)
   }
 
+  sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
   sendMessageToServer(data){
     // const msg:{action: string, data: any}={action: 'sendMessage', 'data': 'Hello from UI'};
     this.status = this.socketService.sendMessage(JSON.stringify(data));
     if (!this.status) {
       console.log("Refreshing Web socket");
       this.subscribeWebSocket();
+      await this.sleep(500);
       this.status = this.socketService.sendMessage(JSON.stringify(data));
+
     }
 
   }
