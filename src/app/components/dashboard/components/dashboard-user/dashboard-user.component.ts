@@ -68,11 +68,10 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
     if (!this.status) {
       console.log("Refreshing Web socket");
       this.subscribeWebSocket();
-      await this.sleep(500);
-      this.status = this.socketService.sendMessage(JSON.stringify(data));
-
+      this.sleep(500).then(() => {
+        this.status = this.socketService.sendMessage(JSON.stringify(data));
+      });
     }
-
   }
 
   closeSocket(){
@@ -89,6 +88,8 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
   getDate(created_date){
     return new Date(created_date).toDateString()
   }
+
+
 
   subscribeWebSocket(){
     this.wsSubscription = this.socketService.createObservableSocket(this.userProfile.id, "None")

@@ -39,29 +39,7 @@ export class DashboardHotelierReportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.profileService.getProfileMe().subscribe(data => {
       this.userProfile = data;
-
-      this.wsSubscription = this.socketService.createObservableSocket("None", this.userProfile.id)
-        .subscribe(
-          data => {
-            console.log("Daata del server socker", data)
-            this.messageFromServer = JSON.parse(data);
-            console.log("desde socket ",this.messageFromServer);
-            this.alerts.push({
-              id: 1,
-              type: 'success',
-              message: this.messageFromServer.message,
-              dismissible: true,
-              state: true
-            });
-            this.reportService.getAllHotelierReport().subscribe(reports => {
-              console.log("reports", reports);
-              this.my_reports = reports;
-            });
-
-          },
-          err => console.log('err'),
-          () => console.log('The observable stream is complete')
-        );
+      this.subscribeWebSocket();
 
       this.reportService.getAllHotelierReport().subscribe(reports => {
         console.log("reports", reports);
@@ -76,7 +54,31 @@ export class DashboardHotelierReportComponent implements OnInit, OnDestroy {
     });
   }
 
+  subscribeWebSocket(){
+    this.wsSubscription = this.socketService.createObservableSocket("None", this.userProfile.id)
+      .subscribe(
+        data => {
+          console.log("Daata del server socker", data)
+          this.messageFromServer = JSON.parse(data);
+          console.log("desde socket ",this.messageFromServer);
+          this.alerts.push({
+            id: 1,
+            type: 'success',
+            message: this.messageFromServer.message,
+            dismissible: true,
+            state: true
+          });
+          this.reportService.getAllHotelierReport().subscribe(reports => {
+            console.log("reports", reports);
+            this.my_reports = reports;
+          });
 
+        },
+        err => console.log('err'),
+        () => console.log('The observable stream is complete')
+      );
+
+  }
 
 
   getReport(){

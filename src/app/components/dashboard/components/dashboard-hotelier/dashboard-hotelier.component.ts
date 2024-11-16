@@ -42,24 +42,8 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
     this.profileService.getProfileMe().subscribe(data => {
       this.userProfile = data;
 
-      this.wsSubscription = this.socketService.createObservableSocket("None", this.userProfile.id)
-        .subscribe(
-          data => {
-            console.log("Daata del server socker", data)
-            this.messageFromServer = JSON.parse(data);
-            console.log("desde socket ",this.messageFromServer);
-            this.alerts.push({
-              id: 1,
-              type: 'success',
-              message: this.messageFromServer.message,
-              dismissible: true,
-              state: true
-            });
+      this.subscribeWebSocket();
 
-          },
-          err => console.log('err'),
-          () => console.log('The observable stream is complete')
-        );
       this.couponService.getAllHotelierCoupons().subscribe(couponData => {
         this.my_coupons = couponData;
         console.log("my coupons hotelier" , this.my_coupons)
@@ -77,6 +61,26 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
     });
   }
 
+  subscribeWebSocket(){
+    this.wsSubscription = this.socketService.createObservableSocket("None", this.userProfile.id)
+      .subscribe(
+        data => {
+          console.log("Daata del server socker", data)
+          this.messageFromServer = JSON.parse(data);
+          console.log("desde socket ",this.messageFromServer);
+          this.alerts.push({
+            id: 1,
+            type: 'success',
+            message: this.messageFromServer.message,
+            dismissible: true,
+            state: true
+          });
+
+        },
+        err => console.log('err'),
+        () => console.log('The observable stream is complete')
+      );
+  }
 
   notifyAllUserSocket(coupon){
     let body_message = {
@@ -100,10 +104,21 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
     return new Date(created_date).toDateString()
   }
 
+  sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
   sendMessageToServer(data){
     // const msg:{action: string, data: any}={action: 'sendMessage', 'data': 'Hello from UI'};
     this.status = this.socketService.sendMessage(JSON.stringify(data));
-    console.log(this.status);
+    if (!this.status) {
+      console.log("Refreshing Web socket");
+      this.subscribeWebSocket();
+      this.sleep(500).then(() => {
+        this.status = this.socketService.sendMessage(JSON.stringify(data));
+      });
+
+    }
   }
 
   useCoupon(){
