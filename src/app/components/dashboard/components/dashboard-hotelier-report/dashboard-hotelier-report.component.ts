@@ -58,9 +58,8 @@ export class DashboardHotelierReportComponent implements OnInit, OnDestroy {
     this.wsSubscription = this.socketService.createObservableSocket("None", this.userProfile.id)
       .subscribe(
         data => {
-          console.log("Daata del server socker", data)
           this.messageFromServer = JSON.parse(data);
-          console.log("desde socket ",this.messageFromServer);
+          console.log("desde Report socket ",this.messageFromServer);
           this.alerts.push({
             id: 1,
             type: 'success',
