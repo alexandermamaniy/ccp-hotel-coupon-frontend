@@ -42,8 +42,8 @@
             <th class="text-center" >Title</th>
             <th class="text-center">Discount</th>
             <th class="text-center" >Hotelier Name</th>
+            <th class="text-center" >Country</th>
             <th class="text-center">Expiration date</th>
-
             <th class="text-center">Description</th>
             <th class="text-right">Actions</th>
           </tr>
@@ -55,6 +55,7 @@
             <td class="text-center"  >{{coupon.title}}</td>
             <td class="text-center" >{{coupon.discount}}</td>
             <td class="text-center"  >{{coupon.hotelier_profile.name}}</td>
+            <td class="text-center"  >{{coupon.hotelier_profile.country}}</td>
             <td class="text-center" >{{getDate(coupon.expiration_date)}}</td>
             <td class="text-center"  >{{coupon.description}}</td>
 
