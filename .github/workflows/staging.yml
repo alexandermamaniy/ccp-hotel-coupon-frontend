@@ -12,10 +12,6 @@ env:
   DOCKER_IMAGE_NAME: hotelcoupon_nginx
   DOCKER_REGISTRY_URL: x23329823
 
-#permissions:
-#  pull-requests: write
-#  contents: write
-
 jobs:
 
   build_docker_images:
