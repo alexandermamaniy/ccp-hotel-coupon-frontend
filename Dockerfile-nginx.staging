@@ -2,7 +2,7 @@ FROM node:20.18-alpine AS build
 
 RUN apk add git
 
-RUN git clone https://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@github.com/alexandermamaniyucra/ccp-hotel-coupon-frontend.git
+RUN git clone -b $STAGING_BRANCH_NAME https://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@github.com/alexandermamaniyucra/ccp-hotel-coupon-frontend.git
 
 WORKDIR /ccp-hotel-coupon-frontend
 
