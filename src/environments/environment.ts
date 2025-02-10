@@ -5,6 +5,6 @@
 
 export const environment = {
   production: true,
-  url: "http://54.165.168.21",
+  url: "http://54.86.66.235",
   wsUrl: "wss://hjmzgi77i3.execute-api.us-east-1.amazonaws.com/staging/"
 };
