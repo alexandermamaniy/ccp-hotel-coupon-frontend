@@ -60,6 +60,9 @@
             <td class="text-center"  >{{coupon.description}}</td>
 
             <td class="td-actions text-right">
+              <a href=""  class="btn btn-danger btn-link btn-sm"  ngbTooltip="Get QR code">
+                <i class="fa fa-qrcode"></i>
+              </a>
               <app-coupon-detail-modal (click)="send_view_coupon_interaction_user(coupon)" [is_hotelier]="false" [couponTarget]="coupon" ></app-coupon-detail-modal>
               <button (click)="redeemCoupon(coupon.id)"  type="button" ngbTooltip="Redeem Coupon" class="btn btn-success btn-link btn-sm">
                 <i class="fa fa-bookmark"></i>

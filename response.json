@@ -1,0 +1,21 @@
+[
+  {
+    "report_title": "String",
+    "report_date": "String",
+    "report_description": "String",
+    "report_table_data_header": {
+      "column1": "String",
+      "column2": "String",
+      "column3": "String",
+      "column4": "String"
+    },
+    "report_table_data_body": [
+      {
+        "column1": "String",
+        "column2": "String",
+        "column3": "String",
+        "column4": "String"
+      }
+    ]
+  }
+]
