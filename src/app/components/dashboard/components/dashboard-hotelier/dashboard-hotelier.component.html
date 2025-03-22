@@ -79,6 +79,7 @@
     </div>
 
 
+<!--                <i class="fa fa-qrcode"></i>-->
     <div class="col-md-10 ml-auto mr-auto">
       <h2 class="title">
         <small>
@@ -92,6 +93,24 @@
             <!--        <input class="form-control mr-sm-2 no-border" type="text" placeholder="Search">-->
             <input id="coupon_id_input" class="form-control mr-sm-2 no-border" type="text" placeholder="Insert your coupon code"/>
             <button type="submit" (click)="useCoupon()" class="btn btn-primary btn-round"><i class="nc-icon nc-tag-content" aria-hidden="true"> Use coupon </i></button>
+
+            <div class=" fallback">
+              <div class=" custom-file">
+                <input
+                  class="custom-file-input"
+                  id="projectCoverUploads"
+                  type="file"
+                  (change)="onFileSelected($event)"
+                />
+
+                <label class=" custom-file-label" for="projectCoverUploads">
+
+                  Upload QR
+                </label>
+              </div>
+            </div>
+            <label *ngIf="selectedFile">Selected file: {{ selectedFile.name }}</label>
+
           </form>
         </div>
       </div>

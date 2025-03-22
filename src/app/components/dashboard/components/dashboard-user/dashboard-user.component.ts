@@ -7,6 +7,8 @@ import {IAlert} from "../../notification/notification.component";
 import { Subscription } from 'rxjs';
 import {SocketService} from "../../../../services/socket/socket.service";
 
+import { environment } from '../../../../../environments/environment';
+
 declare interface TableData {
   headerRow: string[];
   dataRows: string[][];
@@ -60,6 +62,10 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
 
   sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+  getQrCodeURL(id){
+    return environment.qr_code_service_host + 'qr_code?id=' + id;
   }
 
   sendMessageToServer(data){
@@ -187,4 +193,9 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
     this.closeSocket();
   }
 
+  getQRCode(id){
+    this.couponService.getQRCode(id).subscribe(data => {
+      // console.log(data);
+    })
+  }
 }

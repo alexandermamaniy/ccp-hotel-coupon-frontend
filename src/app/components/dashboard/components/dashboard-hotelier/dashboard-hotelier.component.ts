@@ -29,7 +29,45 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
   wsSubscription: Subscription;
   status;
 
+  selectedFile: File | null = null;
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('File selected:', this.selectedFile);
+
+      // // If you want to read the file:
+      // const reader = new FileReader();
+      // reader.onload = () => {
+      //   console.log('File content:', reader.result);
+      // };
+      // reader.readAsText(this.selectedFile); // or readAsDataURL, etc.
+
+      if (!this.selectedFile) {
+        alert('Please select a file first.');
+        return;
+      }
+
+      this.couponService.decodeQrCode(this.selectedFile).subscribe({
+        next: response => {
+          console.log('Decode success:', response);
+          document.getElementById('coupon_id_input')['value'] = response.decoded_data
+
+          this.clearFile(input);
+        },
+        error: error => {
+          console.error('Decode failed:', error);
+        }
+      });
+    }
+  }
+
+  clearFile(inputElement: HTMLInputElement): void {
+    inputElement.value = ''; // Reset input
+    this.selectedFile = null; // Clear file ref
+  }
 
   constructor(private profileService: ProfileService,
               private couponService: CouponService,
@@ -132,6 +170,7 @@ export class DashboardHotelierComponent implements OnInit, OnDestroy {
         dismissible: true,
         state: true
       });
+      document.getElementById('coupon_id_input')['value'] = "";
     }, error => {
       this.alerts.push({
         id: 1,

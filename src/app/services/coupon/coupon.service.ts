@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class CouponService {
   url = environment.url +"/api/";
+  url_qr = environment.qr_code_service_host;
   constructor( private http: HttpClient ) {
 
   }
@@ -42,4 +43,13 @@ export class CouponService {
     return this.http.get(this.url+'coupon/list-used');
   }
 
+  getQRCode(id): Observable<any>  {
+    return this.http.get<any>(this.url_qr +'qr_code?id='+id);
+  }
+
+  decodeQrCode(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('image', file);
+    return this.http.post(this.url_qr +'qr_code', formData);
+  }
 }
