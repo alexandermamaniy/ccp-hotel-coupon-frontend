@@ -65,7 +65,8 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
   }
 
   getQrCodeURL(id){
-    return environment.qr_code_service_host + 'qr_code?id=' + id;
+    let proxy = "https://p7c60s8q39.execute-api.us-east-1.amazonaws.com/prod/";
+    return proxy + 'qr_code?id=' + id;
   }
 
   sendMessageToServer(data){
