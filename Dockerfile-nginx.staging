@@ -7,7 +7,7 @@ RUN apk add git
 ARG STAGING_BRANCH_NAME
 
 RUN echo ${STAGING_BRANCH_NAME}
-RUN git clone -b $STAGING_BRANCH_NAME https://github.com/alexandermamaniyucra/ccp-hotel-coupon-frontend.git
+RUN git clone -b $STAGING_BRANCH_NAME https://github.com/alexandermamaniy/ccp-hotel-coupon-frontend.git
 
 WORKDIR /ccp-hotel-coupon-frontend
 
