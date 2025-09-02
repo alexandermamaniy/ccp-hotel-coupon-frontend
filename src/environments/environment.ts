@@ -5,7 +5,7 @@
 
 export const environment = {
   production: true,
-  url: "https://alexandermamani.com",
+  url: "https://demo.hotelcoupon.alexandermamani.com",
   wsUrl: "wss://hjmzgi77i3.execute-api.us-east-1.amazonaws.com/staging/",
   qr_code_service_host: "http://54.154.139.81:5000/"
 };
